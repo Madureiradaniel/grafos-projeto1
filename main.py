@@ -12,11 +12,12 @@ grafo.addAresta(8,6)
 grafo.addAresta(0,4)
 grafo.addAresta(4,5)
 grafo.addAresta(4,2)
-grafo.addAresta(1,10)
-grafo.addAresta(10,11)
-
+grafo.addAresta(4,4)
 
 vetor = Bfs(grafo.getLista(),1)
+
 grafo.mostraLista()
 print("\n")
-vetor.get_distancias()
+
+print(vetor.get_distancias())
+
