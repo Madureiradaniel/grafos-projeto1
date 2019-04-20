@@ -15,6 +15,7 @@ grafo.addAresta(4,2)
 grafo.addAresta(1,10)
 grafo.addAresta(10,11)
 
+
 vetor = Bfs(grafo.getLista(),1)
 grafo.mostraLista()
 print("\n")
