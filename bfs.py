@@ -4,6 +4,7 @@ class Bfs(object):
 
 
     def __init__(self,grafo,vertice):
+
         fila = Fila()
         #lista para auxiliar a calcular as distancias
         auxDist = []
@@ -16,7 +17,7 @@ class Bfs(object):
 
         fila.QEUEput(vertice)
         auxDist[0].append(vertice)
-        self.__vetor_visitacao[vertice]=cont
+        self.__vetor_visitacao[vertice] = cont
 
         cont+=1
         distancia=0
@@ -51,7 +52,7 @@ class Bfs(object):
                     if j != a:
                         soma = soma + 1
                     else:
-                        print("a cidade: " + str(a) + " tem uma estrada que leva a ela mesmo!")
+                        print("A cidade: " + str(a) + " tem uma estrada que leva a ela mesmo!")
 
             self.__vetor_distancias[cont] = soma
             cont +=1
