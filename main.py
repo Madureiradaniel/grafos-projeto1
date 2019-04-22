@@ -11,38 +11,41 @@ def main():
         op = int(input(""))
 
         if op == 1:
+            print("-------------------------------------------------------------------")
             #ler os numeros atraves do arquivo .txt
             #caso queira mudar, basta alterar o arquivo
             arq = open('./vetor.txt')
             numeros = arq.read()
             arq.close()
             vetor = list(map(int, numeros.split(",")))
-            print(vetor)
+            print("Vetor de Entrada -> " + str(vetor))
             grafo = Service()
             capital = grafo.verificaCapital(vetor)
 
             if capital != False:
                 vetorDistancias = grafo.transformaVetor(vetor, capital)
-                print("\nVetor de distacias")
-                print(vetorDistancias)
+                print("\nvetor de Distancias -> " + str(vetorDistancias) + "\n")
                 grafo.traduzVetor(vetorDistancias)
             print("\n")
 
+            print("-------------------------------------------------------------------")
 
 
         elif op == 2:
+            print("-------------------------------------------------------------------")
+
             numeros  = input("Digite uma sequencia de numeros no seguinte padrão: 'x,y,z,.., w,' :\n ")
             vetor = list(map(int,numeros.split(",")))
             grafo = Service()
-            print(vetor)
+            print("\nVetor de Entrada-> " + str(vetor) + "\n")
             capital = grafo.verificaCapital(vetor)
 
             if capital != False:
                 vetorDistancias = grafo.transformaVetor(vetor,capital)
-                print("\nVetor de distacias")
-                print(vetorDistancias)
+                print("vetor de Distancias -> " + str(vetorDistancias))
                 grafo.traduzVetor(vetorDistancias)
             print("\n")
+            print("-------------------------------------------------------------------")
 
         elif op == 0:
             print("Exit\n")

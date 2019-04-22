@@ -6,7 +6,8 @@ class Bfs(object):
     def __init__(self,grafo,vertice):
 
         fila = Fila()
-        #lista para auxiliar a calcular as distancias
+
+        #lista para guardar os vertices por distancia
         auxDist = []
         for i in range(len(grafo)):
             auxDist.append([])
@@ -16,7 +17,8 @@ class Bfs(object):
         self.__vetor_visitacao = ([-1]*len(grafo))
 
         fila.QEUEput(vertice)
-        auxDist[0].append(vertice)
+        fila.QEUEput(-1) # separa a fila por camada
+
         self.__vetor_visitacao[vertice] = cont
 
         cont+=1
@@ -25,19 +27,34 @@ class Bfs(object):
         while fila.QEUEempty() != 0:
             v = fila.QEUEget()
 
-            for i in grafo[v]:
-                if self.__vetor_visitacao[i] == -1:
-                    self.__vetor_visitacao[i] = cont
-                    cont = cont + 1
-                    if len(grafo[i]) > 0:
-                        #so insiro na fila caso o vertice visitado tenha um caminho para outro vertice
-                        # e se algo for inserido na fila a distancia aumenta
+            #se o v for igual a -1 significa que e o fim da fila
+            if v != -1:
+                camada = fila.QEUEget()
+
+                #aumenta a distancia caso a camada = -1,
+                aux=distancia
+                if camada == -1:
+                    distancia += 1
+                else:
+                    #se a camada nao for igual a -1, ela e inserida novamente no inicio da fila,
+                    # pois se trata de um vertice
+                    fila.addInicioDaFila(camada)
+
+                #preenche o vetor de visitaçao
+                for i in grafo[v]:
+                    if self.__vetor_visitacao[i] == -1:
+                        self.__vetor_visitacao[i] = cont
+                        cont = cont + 1
                         fila.QEUEput(i)
-                        auxDist[distancia+1].append(i)
 
-            distancia += 1 # para cada pulo uma distancia
+                #verifico se minha distancia mudou
+                #caso a distancia tenha mudado, insiro meus vertices pertencentes a distancia
+                if aux !=distancia:
+                    auxDist[distancia] = (fila.getFila())
+                    fila.QEUEput(-1) # insiro no fim da fila para identificar que e outra camada
 
-        #mantem na lista de distancia apenas com as listas nao nulas
+
+        #mantem na lista de distancia apenas, as listas nao nulas
         auxDist2 = []
         for i in auxDist:
             if len(i) != 0:
@@ -45,15 +62,10 @@ class Bfs(object):
 
         #soma a quantidade de cidades por cada distancia
         cont = 0
-        for i in auxDist:
+        for i in auxDist2:
             soma =0
             for j in i:
-                for a in grafo[j]:
-                    if j != a:
-                        soma = soma + 1
-                    else:
-                        print("A cidade: " + str(a) + " tem uma estrada que leva a ela mesmo!")
-
+                soma +=1
             self.__vetor_distancias[cont] = soma
             cont +=1
 
